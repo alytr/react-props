@@ -1,86 +1,49 @@
-import React from 'react';
+import React from "react";
+import aly from "./components/aly.jpg";
+import Interval from "./components/Interval";
 
-class Parent extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            data: 'Data from parent'
-        }
-    }
+export default class App extends React.Component {
+  state = {
+    shows: true,
+    Person: {
+      fullName: " aly tra",
+      bio: "I'm javascript developer",
+      imgSrc: aly,
+      profession: "run for fun",
+    },
+    currentCount: 0,
+    intervalId: 0,
+  };
 
-    render(){
-        const {data} = this.state;
-        return(
-            <div>
-                <Child dataParentToChild = {data}/>
-            </div>
-        )
-    }
-}
+  toggle = () => {
+    this.state.shows === true
+      ? this.setState({ shows: false })
+      : this.setState({ shows: true });
+  };
 
-class Child extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            data: this.props.dataParentToChild
-        }
-    }
-
-    render(){
-        const {data} = this.state;
-        return(
-            <div>
-                <form>
-  <label>
-    fullName:
-    <input type="text" name="fullName" />
-  </label><br/><br/>
-  <label>
-Bio :
-<input type="text" name="Bio"/>
-  </label><br/><br/>
-  <img src={"./src.png"} alt="src" />
-     <br/>
-     <label>
-profession :
-<input type="text" name="profession"/>
-  </label><br/><br/>
-  <input type="submit" name="envoyer"/>                      
-</form>
-
-            </div>
-        )
-    }
-}
-class MyReactClass extends React.Component {
-  constructor(props){
-    super(props);
-
-    this.state = {
-      count: this.props.initialCount
-    };
-  }
-  
-  upCount() {
-    this.setState((prevState) => ({
-      count: prevState.count + 1
-    }));
-  }
-  
   render() {
-    return (
-      <div>
-        Hello, {this.props.name}!<br />
-        You clicked the button {this.state.count} times.<br />
-        <button onClick={this.upCount}>Click here!</button>
-      </div>
-    );
+    if (this.state.shows === true) {
+      return (
+        <>
+          <h2>FullName : {this.state.Person.fullName}</h2>
+          <h2>Bio : {this.state.Person.bio}</h2>
+          <h2>Profession : {this.state.Person.profession}</h2>
+          <br />
+          <button onClick={this.toggle}>click Me</button>
+          <Interval />
+          <img src={this.state.Person.imgSrc} alt="myprofile" />
+          <br />
+          <br />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p>Person is hidden !!!!</p>
+          <br />
+          <button onClick={this.toggle}>click Me</button>
+        </>
+      );
+    }
   }
 }
-
-MyReactClass.defaultProps = {
-  name: 'aly',
-  initialCount: 0
-};
-
-export default Parent;
